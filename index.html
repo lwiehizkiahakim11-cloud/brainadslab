@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AD Strategy Optimizer - Winning Ads Generator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 AD Strategy Optimizer</h1>
+            <p>Generate winning ads strategy + monitoring Excel + ready-to-paste Claude prompt</p>
+        </header>
+
+        <main>
+            <!-- TAB NAVIGATION -->
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="input-data">1. Input Data</button>
+                <button class="tab-btn" data-tab="preview-prompt">2. Preview Prompt</button>
+                <button class="tab-btn" data-tab="output">3. Output & Download</button>
+            </div>
+
+            <!-- TAB 1: INPUT DATA -->
+            <div id="input-data" class="tab-content active">
+                <form id="strategyForm">
+                    
+                    <fieldset>
+                        <legend>📊 Previous Campaign Data (Optional but recommended)</legend>
+                        
+                        <div class="form-section">
+                            <label>Ada previous campaign data?</label>
+                            <div class="radio-group">
+                                <label>
+                                    <input type="radio" name="hasPreviousData" value="yes"> 
+                                    Ya, upload data
+                                </label>
+                                <label>
+                                    <input type="radio" name="hasPreviousData" value="no" checked> 
+                                    Tidak, first campaign
+                                </label>
+                            </div>
+                        </div>
+
+                        <div id="previousDataInputs" style="display:none;">
+                            <div class="form-group">
+                                <label for="campaignHistory">Paste campaign data (CSV format atau manual)</label>
+                                <textarea id="campaignHistory" 
+                                    placeholder="Campaign name, Platform, Budget, Impressions, Clicks, Conversions, ROAS, Best format, Best angle, Best audience..."
+                                    rows="6"></textarea>
+                                <small>Format: Campaign1 | TikTok | Rp 1M | 50K | 2.5K | 250 | 2.5:1 | Video 15s | Urgency | 1% Lookalike</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lessonsLearned">Lessons learned dari campaigns sebelumnya</label>
+                                <textarea id="lessonsLearned" 
+                                    placeholder="Apa yang berhasil? Apa yang gagal? Pattern apa yang terlihat?"
+                                    rows="4"></textarea>
+                            </div>
+                        </div>
+                    </fieldset>
+
+                    <!-- PRODUCT CONTEXT -->
+                    <fieldset>
+                        <legend>🛍️ Product / Business Context</legend>
+                        
+                        <div class="form-group">
+                            <label for="productName">Nama produk / layanan</label>
+                            <input type="text" id="productName" placeholder="e.g., Course premium, Affiliate product, SaaS tool" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productDesc">Deskripsi singkat & unique value prop</label>
+                            <textarea id="productDesc" placeholder="Apa yang membedakan dari kompetitor?" rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="pricePoint">Price point / Budget range</label>
+                                <input type="text" id="pricePoint" placeholder="e.g., Rp 499K - Rp 2.5M" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="niche">Industry / Niche</label>
+                                <input type="text" id="niche" placeholder="e.g., Digital marketing, Finance, Fashion" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="targetAudience">Target audience (demo + psychographic)</label>
+                            <textarea id="targetAudience" 
+                                placeholder="e.g., 18-35 years old, entrepreneur, interested in growth hacking, wants passive income"
+                                rows="3" required></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="painPoints">Main pain points / objections audience memiliki</label>
+                            <textarea id="painPoints" 
+                                placeholder="e.g., Tidak punya waktu, takut harga mahal, skeptis dengan hasil"
+                                rows="3" required></textarea>
+                        </div>
+                    </fieldset>
+
+                    <!-- PLATFORM & GOALS -->
+                    <fieldset>
+                        <legend>📱 Platform & Campaign Goals</legend>
+                        
+                        <div class="form-group">
+                            <label for="platform">Platform utama</label>
+                            <select id="platform" required>
+                                <option value="">-- Pilih platform --</option>
+                                <option value="tiktok">TikTok Ads</option>
+                                <option value="facebook">Facebook/Instagram Ads</option>
+                                <option value="Anthropic">Anthropic Ads</option>
+                                <option value="multi">Multi-platform (TikTok + FB + Anthropic)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="campaignObjective">Campaign objective</label>
+                            <select id="campaignObjective" required>
+                                <option value="">-- Pilih objective --</option>
+                                <option value="traffic">Traffic (klik ke website)</option>
+                                <option value="conversions">Conversions (purchase/signup)</option>
+                                <option value="leads">Leads (email collection)</option>
+                                <option value="engagement">Engagement (likes/comments/shares)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="testingBudget">Testing budget (total untuk 14 hari)</label>
+                                <input type="text" id="testingBudget" placeholder="e.g., Rp 500K - Rp 2M" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="minROAS">Minimum ROAS target</label>
+                                <input type="number" id="minROAS" placeholder="e.g., 2, 2.5, 3" step="0.1" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="maxCPC">Maximum CPC / Cost target</label>
+                                <input type="text" id="maxCPC" placeholder="e.g., Rp 5K - Rp 10K" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="timelineWinners">Timeline to identify winners (days)</label>
+                                <input type="number" id="timelineWinners" placeholder="e.g., 7, 14, 21" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="conversionMetric">Primary conversion metric</label>
+                            <select id="conversionMetric" required>
+                                <option value="">-- Pilih metric --</option>
+                                <option value="purchase">Purchase / Payment</option>
+                                <option value="signup">Sign up / Registration</option>
+                                <option value="lead">Lead generation</option>
+                                <option value="pageview">Page view / Click through</option>
+                                <option value="add-to-cart">Add to cart</option>
+                            </select>
+                        </div>
+                    </fieldset>
+
+                    <!-- ADDITIONAL PREFERENCES -->
+                    <fieldset>
+                        <legend>⚙️ Preferences</legend>
+                        
+                        <div class="form-group">
+                            <label for="creativePreference">Preferred creative formats</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="formats" value="video"> Video (15-30s)</label>
+                                <label><input type="checkbox" name="formats" value="carousel"> Carousel</label>
+                                <label><input type="checkbox" name="formats" value="static"> Static image</label>
+                                <label><input type="checkbox" name="formats" value="collection"> Collection</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="copyPreference">Preferred copy angles</label>
+                            <div class="checkbox-group">
+                                <label><input type="checkbox" name="angles" value="urgency"> Urgency/Scarcity</label>
+                                <label><input type="checkbox" name="angles" value="benefit"> Benefit-driven</label>
+                                <label><input type="checkbox" name="angles" value="proof"> Social proof</label>
+                                <label><input type="checkbox" name="angles" value="curiosity"> Curiosity gap</label>
+                                <label><input type="checkbox" name="angles" value="educational"> Educational</label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="additionalNotes">Catatan / constraints tambahan</label>
+                            <textarea id="additionalNotes" 
+                                placeholder="e.g., Brand guidelines, competitor insights, market trends"
+                                rows="3"></textarea>
+                        </div>
+                    </fieldset>
+
+                    <button type="submit" class="btn-primary">Generate Strategy →</button>
+                </form>
+            </div>
+
+            <!-- TAB 2: PREVIEW PROMPT -->
+            <div id="preview-prompt" class="tab-content">
+                <div class="preview-section">
+                    <h3>📋 Claude Prompt (Ready to Paste)</h3>
+                    <div id="promptPreview" class="code-block">
+                        <p style="color: #999; text-align: center; padding: 40px;">
+                            Isi form terlebih dahulu untuk generate prompt
+                        </p>
+                    </div>
+                    <button id="copyPromptBtn" class="btn-secondary" style="display:none; margin-top: 15px;">
+                        📋 Copy Prompt to Clipboard
+                    </button>
+                </div>
+
+                <div class="preview-section">
+                    <h3>📊 Excel Template Preview</h3>
+                    <div id="excelPreview" style="overflow-x: auto;">
+                        <table style="font-size: 12px; width: 100%;">
+                            <thead>
+                                <tr style="background: #f0f0f0;">
+                                    <th>Set Name</th>
+                                    <th>Audience</th>
+                                    <th>Budget %</th>
+                                    <th>Impressions</th>
+                                    <th>Clicks</th>
+                                    <th>CTR</th>
+                                    <th>Conversions</th>
+                                    <th>ROAS</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="9" style="text-align: center; padding: 30px; color: #999;">
+                                        Preview akan tampil setelah generate
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: OUTPUT & DOWNLOAD -->
+            <div id="output" class="tab-content">
+                <div class="output-section">
+                    <h3>✅ Output Ready</h3>
+                    <p>Download semua file yang dibutuhkan:</p>
+
+                    <div class="download-group">
+                        <button id="downloadPrompt" class="btn-download" style="display:none;">
+                            📄 Download Prompt (TXT)
+                        </button>
+                        <button id="downloadExcel" class="btn-download" style="display:none;">
+                            📊 Download Excel Monitoring
+                        </button>
+                        <button id="downloadJSON" class="btn-download" style="display:none;">
+                            🔄 Download JSON (untuk MCP integration)
+                        </button>
+                    </div>
+
+                    <div class="summary-section" id="summarySection" style="display:none;">
+                        <h4>📈 Strategy Summary</h4>
+                        <div id="summaryContent"></div>
+                    </div>
+                </div>
+
+                <div class="next-steps-section">
+                    <h3>🚀 Next Steps</h3>
+                    <ol>
+                        <li>Copy prompt di atas → Paste ke Claude dengan ads platform integration</li>
+                        <li>Claude akan setup audience sets, creative variants, interest testing</li>
+                        <li>Download Excel monitoring sheet → Track daily performance</li>
+                        <li>Follow 14-day testing roadmap (updated setiap 3 hari)</li>
+                        <li>Lock winning ads combination setelah data cukup</li>
+                    </ol>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Built for scalable ads testing | Powered by Claude AI + Netlify</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="excel-generator.js"></script>
+</body>
+</html>

@@ -1,0 +1,176 @@
+=== AD STRATEGY OPTIMIZER PROMPT ===
+[Paste ke Claude yang sudah connected dengan ads platform]
+
+---
+
+CONTEXT:
+
+## PREVIOUS CAMPAIGN PERFORMANCE DATA
+[Jika user punya data historis]
+
+Campaign: [Campaign name]
+Platform: [TikTok/FB/IG/Anthropic]
+Period: [Dates]
+Results:
+- Budget spent: [Amount]
+- Impressions: [#]
+- Clicks: [#]
+- Conversions: [#]
+- ROAS: [Ratio]
+- Best performing: [Format/Angle/Audience]
+- Worst performing: [Format/Angle/Audience]
+
+[Multiple campaigns jika ada]
+
+---
+
+## CURRENT PRODUCT/BUSINESS CONTEXT
+
+Product: [Product name & description]
+Price point: [Range]
+Target audience: [Demo, psychographic, pain points]
+Unique value prop: [vs competitors]
+Industry/Niche: [Category]
+Testing budget: [Amount]
+Timeline to identify winners: [Days]
+
+---
+
+## PLATFORM & GOALS
+
+Primary platform: [TikTok/FB/IG/Anthropic]
+Campaign objective: [Traffic/Conversions/Leads/Engagement]
+KPI targets:
+  - Minimum ROAS: [Target]
+  - Maximum CPC: [Budget]
+  - Conversion rate target: [%]
+  - Timeline: [X days]
+
+---
+
+## TASK
+
+Based on above data, generate WINNING ADS RECOMMENDATION with:
+
+### 1. ADS SET TESTING (Audience Strategy)
+Create 3 audience test sets with:
+- Audience specification (interests, lookalikes, custom segments)
+- Budget allocation %
+- Rationale (from historical data if applicable)
+- Expected ROAS range
+- Confidence level (High/Medium/Low)
+
+### 2. CREATIVE TESTING (Proven + New Variations)
+Generate 3+ creative variations with:
+- Format recommendation (video/carousel/static/collection)
+- Copy angle & hook
+- Visual style guidance
+- CTA variation
+- Why this should work (based on patterns if data available)
+- Confidence level based on historical performance
+
+### 3. INTEREST TESTING (Detailed Targeting)
+Provide:
+- Primary interests (core buyer intent)
+- Secondary modifiers (refinement interests)
+- Exclusions (waste reduction)
+- Interest stack combinations ranked by confidence
+- Rationale for each tier
+- Historical validation (if available)
+
+### 4. TESTING ROADMAP
+Day-by-day action plan for 14 days:
+- Phase 1 (Days 1-3): Setup & learning metrics to watch
+- Phase 2 (Days 4-7): Optimization actions & pivots
+- Phase 3 (Days 8-14): Scaling & winning pattern lock-in
+- Decision checkpoints each 3 days
+- Performance KPIs to monitor
+
+### 5. WINNING ADS PREDICTION
+Based on historical data + market analysis:
+- Predicted winning creative format & angle
+- Predicted winning audience profile
+- Predicted winning interest stack
+- Expected ROAS range (conservative estimate)
+- Win probability score (based on data match quality)
+- Key risk factors & mitigation
+
+---
+
+## OUTPUT FORMAT
+
+Structure output as:
+
+**[ADS SET TESTING]**
+Test Set 1: [Name]
+├─ Audience: [Spec]
+├─ Budget: [%]
+├─ Rationale: [Why]
+├─ Expected ROAS: [Range]
+├─ Confidence: [High/Med/Low]
+
+[Repeat for Set 2, 3]
+
+**[CREATIVE TESTING]**
+Format/Angle Combo A:
+├─ Format: [Type]
+├─ Angle: [Description]
+├─ Hook: [Exact copy]
+├─ Visual: [Style]
+├─ CTA: [Exact copy]
+├─ Why: [Rationale]
+
+[Repeat for multiple variations]
+
+**[INTEREST TESTING]**
+🔴 HIGH CONFIDENCE:
+├─ Stack: [Interests]
+├─ Expected ROAS: [Range]
+├─ Rationale: [Data-backed]
+
+🟡 MEDIUM CONFIDENCE:
+├─ Stack: [Interests]
+├─ Expected ROAS: [Range]
+
+🟢 LOW CONFIDENCE:
+├─ Stack: [Interests]
+├─ Expected ROAS: [Range]
+
+**[TESTING ROADMAP - 14 DAYS]**
+
+PHASE 1 (Days 1-3):
+- Launch: [What to activate]
+- Watch: [Metrics]
+- Decision point Day 2: [Pause/pause criteria]
+
+[Full day-by-day breakdown]
+
+**[WINNING ADS PREDICTION]**
+Best predicted winner:
+├─ Creative: [Format + angle]
+├─ Audience: [Segment]
+├─ Expected ROAS: [Range]
+├─ Win probability: [%]
+├─ Risks: [List]
+
+---
+
+Now please:
+1. Connect to [Platform] ads account
+2. Set up 3 audience sets per recommendations
+3. Create ad creatives per variations
+4. Launch testing with budget allocation
+5. Monitor daily metrics against roadmap
+6. Report results back for optimization
+
+---
+
+Format results as JSON for easy Excel import:
+{
+  "campaign_id": "[ID]",
+  "date_started": "[Date]",
+  "platform": "[Platform]",
+  "test_sets": [...],
+  "creative_variants": [...],
+  "daily_metrics": [...]
+}

@@ -1,0 +1,83 @@
+SHEET 1: CAMPAIGN OVERVIEW
+├─ Campaign name
+├─ Platform
+├─ Start date
+├─ Budget allocated
+├─ KPI targets
+├─ Current status
+└─ Overall ROAS (live calculation)
+
+SHEET 2: AUDIENCE SETS TRACKING
+├─ Set name
+├─ Audience spec
+├─ Budget allocated
+├─ Days running
+├─ Impressions
+├─ Clicks
+├─ CTR %
+├─ Conversions
+├─ Cost per conversion
+├─ ROAS (auto-calc)
+├─ Status (Active/Pause/Winner)
+├─ Notes
+└─ Confidence level
+
+SHEET 3: CREATIVE PERFORMANCE
+├─ Creative ID
+├─ Format
+├─ Angle
+├─ Audience set pairing
+├─ Impressions
+├─ Clicks
+├─ CTR %
+├─ Engagement rate
+├─ Conversions
+├─ Cost per conversion
+├─ ROAS (auto-calc)
+├─ Ad fatigue score
+├─ Status
+└─ Notes
+
+SHEET 4: DAILY METRICS TRACKER
+├─ Date
+├─ Total impressions (daily)
+├─ Total clicks (daily)
+├─ Total conversions (daily)
+├─ Daily spend
+├─ Daily ROAS
+├─ Top performer (audience set)
+├─ Top performer (creative)
+├─ Challenges/notes
+└─ Actions taken
+
+SHEET 5: TESTING ROADMAP
+├─ Day
+├─ Phase
+├─ Planned action
+├─ Metrics to watch
+├─ Decision criteria
+├─ Actual results
+├─ Decision made
+└─ Next action
+
+SHEET 6: WINNING ADS SUMMARY
+├─ Predicted winner
+├─ Actual winner (once identified)
+├─ Format
+├─ Angle
+├─ Audience
+├─ Average ROAS
+├─ Conversion rate
+├─ Cost per conversion
+├─ Recommendation
+└─ Next steps (scaling/optimization)
+
+SHEET 7: ANALYSIS & INSIGHTS
+├─ Format performance comparison
+├─ Angle performance comparison
+├─ Audience segment ranking
+├─ Interest stack effectiveness
+├─ Copy hook performance
+├─ Ad fatigue timeline
+├─ Seasonal patterns (if data spans months)
+└─ Recommendations for next campaign
